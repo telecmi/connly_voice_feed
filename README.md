@@ -1,12 +1,11 @@
-<<<<<<< Updated upstream
+
 # telecmi_call_feed
 TeleCMI live call feed
 =======
-TeleCMI Agent Call Feed
-===================
 
 
-Javascript agent live call feed  SDK for india Virtual number and toll free number from TeleCMI cloud platform.
+
+Javascript  live call feed  SDK for Browser
 
 
 
@@ -18,15 +17,15 @@ Documents
 
 **npm**
 
-    npm install telecmi-agent-livefeed
+    npm install telecmi-call-feed
     
 **yarn**
 
-    yarn add telecmi-agent-livefeed
+    yarn add telecmi-call-feed
 
 **Add to your page**
 
-    <script src="dist/telecmi-agent-livefeed.min.js"></script>
+    <script src="dist/telecmi-call-feed.min.js"></script>
 
 ## **Get Started**
 
@@ -138,4 +137,4 @@ Subscribe incomming calls live feed
 
 
 
->>>>>>> Stashed changes
+
