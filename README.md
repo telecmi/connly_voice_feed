@@ -76,27 +76,15 @@ connected | Live call feed connection established |
 error | Invalid token need to check token |
 
 
-## Set Agent status  
-**Online**
+## Call Barge
 
-Make agent status online
+
+Barge ongoing call
 ```javascript
-  telecmi.setOnline();
+  telecmi.barge('uuid','Supervisor ID');
 ```
 
-**Break**
 
-Make agent status break/Away
-```javascript
-  telecmi.setBreak();
-```
-
-**Dialer**
-
-Make agent status dialer
-```javascript
-  telecmi.setDialer();
-```
 
 ## Subscribe 
 **Call Events**
@@ -120,6 +108,7 @@ Subscribe incomming calls live feed
    console.log(data.agent) //Agent Id
    console.log(data.time) //Incomming call time
    console.log(data.status) // incomming call status is it answered or still ringing
+   console.log(data.uuid) //Call UUID for call barge
  };
 ```
 
