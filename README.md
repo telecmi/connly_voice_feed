@@ -36,7 +36,7 @@ var telecmi = new TeleCMI();
 
 ## Method
 **Register**
-Using our  [Agent Login API](https://doc.telecmi.com/chub#!/agent-login) you can get agent token. Using agent token you can create live call feed connection using following method. 
+Using our  [Admin Login API](https://doc.telecmi.com/chub/docs/user-access) you can get admin token. Using admin token you can create live call feed connection using following method. 
 ```javascript
 telecmi.start('token')
 ```
