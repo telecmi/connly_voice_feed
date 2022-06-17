@@ -7,7 +7,7 @@
 		angular.module('telecmi',[]).controller('mainController',function($scope,$http){
 			telecmi = new TeleCMI();
 
-			telecmi.start('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpbmV0X25vIjoyMjI0MDE1LCJpYXQiOjE2NTQ5MzEzMTIsImV4cCI6MTY1NzUyMzMxMn0_xxxxxxx')
+			telecmi.start('xxxx-xxx')
 		
 
 		telecmi.onDisconnect = function(data){
@@ -29,10 +29,12 @@ console.log(data)
 
 		telecmi.onConnect= function(data)
 		{
-			console.log(data)
+			
 			if(data.status=='connected')
 			{
 				telecmi.subscribeAgents();
+				telecmi.subscribeCalls();
+				telecmi.monitorCalls();
 			}
 		}
 

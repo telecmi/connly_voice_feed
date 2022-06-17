@@ -1,6 +1,6 @@
 {
   "name": "telecmi-call-feed",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "TeleCMI  live call feed javascript sdk for browser and NodeJS",
   "main": "dist/telecmi-call-feed.min.js",
   "directories": {
