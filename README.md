@@ -2,9 +2,7 @@
 TeleCMI live call feed
 =======
 
-
-
-Javascript  live call feed  SDK for Browser
+TeleCMI live call feed  SDK for Browser and NodeJS
 
 
 
@@ -36,29 +34,64 @@ var telecmi = new TeleCMI();
 
 ## Method
 **Register**
-Using our  [Admin Login API](https://doc.telecmi.com/chub/docs/user-access) you can get admin token. Using admin token you can create live call feed connection using following method. 
+Using our  [Admin Login API](https://doc.telecmi.com/chub/docs/user-access) you can get access token. Using feed access token you can connect with TeleCMI platform. 
 ```javascript
-telecmi.start('token')
+telecmi.start('access token')
 ```
 
-## Connect Callback
-**onConnect**
-This callback will trigger once live call feed connection will try to establish with our TeleCMI platform.
-
-**Connect**
- .
+**Call Barge**
+Barge ongoing call using call uuid and supervisor ID
 ```javascript
-  telecmi.onConnect=function(data){
-  //Data is JSON it contain event and status
-  };
+  telecmi.barge('uuid','Supervisor ID');
 ```
 
+## Subscribe 
+**Live Call**
+Subscribe live call's events 
+```javascript
+  telecmi.subscribeCalls();
+```
 ***Example***
 ```javascript
   telecmi.onConnect=function(data){
   if(data.status=='connected'){
-   //Live call feed ready start subscribe 
+   //subscribe 
        telecmi.subscribeCalls();
+     }else if(data.status=='error')
+     {
+        // Invalid token please check your token
+     }
+ };
+```
+**Ongoing Call**
+Subscribe ongoing call's events 
+```javascript
+  telecmi.monitorCalls();
+```
+***Example***
+```javascript
+  telecmi.onConnect=function(data){
+  if(data.status=='connected'){
+   //subscribe 
+       elecmi.monitorCalls();
+     }else if(data.status=='error')
+     {
+        // Invalid token please check your token
+     }
+ };
+```
+
+**Agent**
+Subscribe Agents status and list
+```javascript
+  telecmi.subscribeAgents();
+```
+***Example***
+```javascript
+  telecmi.onConnect=function(data){
+  if(data.status=='connected'){
+   // subscribe 
+       telecmi.subscribeAgents();
      }else if(data.status=='error')
      {
         // Invalid token please check your token
@@ -67,36 +100,39 @@ This callback will trigger once live call feed connection will try to establish 
 ```
 
 
-**List of response**
-
- Status     | Description
-|:-------------:|:-------------:| 
-connected | Live call feed connection established |
-error | Invalid token need to check token |
 
 
-## Call Barge
 
+##  Callback
+### Connect
+This callback function update the status of connection.
 
-Barge ongoing call
+**syntax**
+ 
 ```javascript
-  telecmi.barge('uuid','Supervisor ID');
+  telecmi.onConnect=function(data){
+  //data - JSON object
+  };
+```
+### Disconnected
+This callback function invoked when socket connection disconnected.
+
+**syntax**
+ 
+```javascript
+  telecmi.onDisconnect=function(){
+  //data - JSON object
+  };
 ```
 
+### Calls
+This callback function invoked when call started.
 
-
-## Subscribe 
-**Call Events**
-Subscribe incomming calls live feed
-```javascript
-  telecmi.subscribeCalls();
-```
-
-**Call Back**
- .
+**syntax**
+ 
 ```javascript
   telecmi.onCalls=function(data){
-  //Data is JSON it contain customer number,group id,time and call uuid
+  //data - JSON object
   };
 ```
 
@@ -120,9 +156,21 @@ Subscribe incomming calls live feed
 |--------------------------------------------------------------------------------------------------------------------------------	|----------	|------------------------	|-----------------	|-----------	|-------------	|-----------------------	|----------------------------	|-----------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
 | It's define channel property "ch-c" = channel create ."ch-s" = channel state change like early,answer. "ch-d" = channel deleted 	| Agent id 	| Call receiving team id 	| customer number 	| record is 	| Your app id 	| customer channel uuid 	| customer name if you saved 	| agent call uuid 	| call status is it answered or ringing  'early' = Call ringing to agent 'answer' = Call answered by agent 'bridged' = Call established between customer and agent 'hangup' = Call disconnected 	|
 
+### Agents
+This callback function invoked when Users/Agents update their status .
+
+**syntax**
+ 
+```javascript
+  telecmi.onAgents=function(data){
+  //data - JSON object
+  };
 ```
-
-
-
+***Example***
+```javascript
+  telecmi.onAgents=function(data){
+  
+ };
+```
 
 

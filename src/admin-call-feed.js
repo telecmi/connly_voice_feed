@@ -25,6 +25,11 @@ window.TeleCMI = ( function () {
             self.onAgents( data );
         } )
 
+
+        this.socket.on( "connect_error", ( err ) => {
+            console.log( `connect_error due to ` + err );
+        } );
+
         // On going Calls
         this.socket.on( 'call-feed', function ( data ) {
 
