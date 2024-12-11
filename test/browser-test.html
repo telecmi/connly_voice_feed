@@ -1,0 +1,7 @@
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.6.1/dist/socket.io.js"></script>
+<script src="./dist/connly-voice-feed.umd.js"></script>
+<script>
+  const connly = new Connly();
+  connly.onConnect = (data) => console.log("Browser Connected:", data);
+  connly.start('your-token-here');
+</script>

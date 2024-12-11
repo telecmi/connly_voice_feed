@@ -1,176 +1,198 @@
 
-TeleCMI live call feed
-=======
 
-TeleCMI live call feed  SDK for Browser and NodeJS
+# Connly Voice Feed
 
+**Connly Voice Feed** is a JavaScript SDK that provides real-time call feed data from the Connly platform. It is compatible with both **Browser** and **Node.js** environments, enabling seamless integration of live call events, agent status updates, and callback functionalities into your applications.
 
+## 📦 Installation
 
+You can install Connly Voice Feed using **npm** or **yarn**.
 
-Documents
--------------
+### npm
 
-## **Install**
-
-**npm**
-
-    npm install telecmi-call-feed
-    
-**yarn**
-
-    yarn add telecmi-call-feed
-
-**Add to your page**
-
-    <script src="dist/telecmi-call-feed.min.js"></script>
-
-## **Get Started**
-
-**Create Telecmi Object**  
-
-```javascript
-var telecmi = new TeleCMI(); 
+```bash
+npm install connly-voice-feed
 ```
 
-## Method
-**Register**
-Using our  [Admin Login API](https://doc.telecmi.com/chub/docs/user-access) you can get access token. Using feed access token you can connect with TeleCMI platform. 
-```javascript
-telecmi.start('access token')
+### yarn
+
+```bash
+yarn add connly-voice-feed
 ```
 
-**Call Barge**
-Barge ongoing call using call uuid and supervisor ID
-```javascript
-  telecmi.barge('uuid','Supervisor ID');
+### Browser (UMD)
+
+To use Connly Voice Feed directly in the browser without a bundler, include the UMD build along with `socket.io-client`:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.8.1/dist/socket.io.js"></script>
+<script src="path/to/dist/connly-voice-feed.umd.js"></script>
 ```
 
-## Subscribe 
-**Live Call**
-Subscribe live call's events 
+---
+
+## 🔧 Importing the SDK
+
+### In Node.js (ES Modules)
+
 ```javascript
-  telecmi.subscribeCalls();
-```
-***Example***
-```javascript
-  telecmi.onConnect=function(data){
-  if(data.status=='connected'){
-   //subscribe 
-       telecmi.subscribeCalls();
-     }else if(data.status=='error')
-     {
-        // Invalid token please check your token
-     }
- };
-```
-**Ongoing Call**
-Subscribe ongoing call's events 
-```javascript
-  telecmi.monitorCalls();
-```
-***Example***
-```javascript
-  telecmi.onConnect=function(data){
-  if(data.status=='connected'){
-   //subscribe 
-       elecmi.monitorCalls();
-     }else if(data.status=='error')
-     {
-        // Invalid token please check your token
-     }
- };
+import Connly from 'connly-voice-feed';
 ```
 
-**Agent**
-Subscribe Agents status and list
+### In Browser (Using ES6 Modules)
+
+If you are using a framework like ReactJS or VueJS:
+
 ```javascript
-  telecmi.subscribeAgents();
-```
-***Example***
-```javascript
-  telecmi.onConnect=function(data){
-  if(data.status=='connected'){
-   // subscribe 
-       telecmi.subscribeAgents();
-     }else if(data.status=='error')
-     {
-        // Invalid token please check your token
-     }
- };
+import Connly from 'connly-voice-feed';
 ```
 
+---
 
+## 🛠 API Reference
 
+### Class: `Connly`
 
+The `Connly` class is the core of the SDK, providing methods to connect to the Connly platform, subscribe to various events, and handle real-time call data.
 
-##  Callback
-### Connect
-This callback function update the status of connection.
+### Constructor
 
-**syntax**
- 
 ```javascript
-  telecmi.onConnect=function(data){
-  //data - JSON object
-  };
-```
-### Disconnected
-This callback function invoked when socket connection disconnected.
-
-**syntax**
- 
-```javascript
-  telecmi.onDisconnect=function(){
-  //data - JSON object
-  };
+new Connly()
 ```
 
-### Calls
-This callback function invoked when call started.
+Creates a new instance of the Connly SDK.
 
-**syntax**
- 
-```javascript
-  telecmi.onCalls=function(data){
-  //data - JSON object
-  };
-```
+---
 
-***Example***
-```javascript
-  telecmi.onCalls=function(data){
-   console.log(data.from) //customer number
-   console.log(data.agent) //Agent Id
-   console.log(data.time) //Incomming call time
-   console.log(data.status) // incomming call status is it answered or still ringing
-   console.log(data.uuid) //Call UUID for call barge
- };
-```
+### Methods
+
+#### `start(token)`
+
+Connects to the Connly platform using the provided access token.
+
+- **Parameters:**
+  - `token` (string): The access token obtained from the Admin Login API.
+
+#### `barge(uuid, to)`
+
+Barges into an ongoing call using the call's UUID and the supervisor's ID.
+
+- **Parameters:**
+  - `uuid` (string): The unique identifier of the call.
+  - `to` (string): The supervisor's ID to whom the call is being barged.
+
+#### `subscribeCalls()`
+
+Subscribes to live call feed events.
+
+#### `monitorCalls()`
+
+Subscribes to ongoing call events.
+
+#### `subscribeAgents()`
+
+Subscribes to agent status and list updates.
+
+#### `removeAllListeners()`
+
+Removes all socket event listeners.
+
+---
+
+### Event Handlers
+
+These are callback functions that can be overridden to handle specific events emitted by the SDK.
+
+#### `onConnect(data)`
+
+Triggered when the socket connection is successfully established.
+
+- **Parameters:**
+  - `data` (object): Contains the connection status.
+
+#### `onDisconnect(data)`
+
+Triggered when the socket connection is disconnected.
+
+- **Parameters:**
+  - `data` (object): Contains the disconnection status.
+
+#### `onCalls(data)`
+
+Triggered when a new call event occurs.
+
+- **Parameters:**
+  - `data` (object): Contains information about the call.
+
+#### `onAgents(data)`
+
+Triggered when agent statuses or the agent list is updated.
+
+- **Parameters:**
+  - `data` (object): Contains information about agents.
+
+#### `onStatus(data)`
+
+Triggered on status updates or errors (e.g., invalid token).
+
+- **Parameters:**
+  - `data` (object): Contains status messages or error details.
+
+#### `onCount(data)`
+
+Triggered on incoming call count updates.
+
+- **Parameters:**
+  - `data` (object): Contains the count of incoming calls.
+
+#### `onagentAnswer(data)`
+
+Triggered when an agent answers a call.
+
+- **Parameters:**
+  - `data` (object): Contains details about the answered call.
+
+#### `onAnswer(data)`
+
+Triggered when a customer answers a call.
+
+- **Parameters:**
+  - `data` (object): Contains details about the answered call.
+
+#### `onCallback(data)`
+
+Triggered when a callback event occurs.
+
+- **Parameters:**
+  - `data` (object): Contains information about the callback event.
+
+---
+
+## 📄 Response Fields
+
+| Field   | Description                                                                                                            |
+|---------|------------------------------------------------------------------------------------------------------------------------|
+| action  | Defines channel property: "ch-c" = channel created, "ch-s" = channel state change (e.g., early, answer), "ch-d" = deleted |
+| agent   | Agent ID receiving the call                                                                                            |
+| group   | Team/Group ID handling the call                                                                                         |
+| from    | Customer's phone number                                                                                                |
+| id      | Record ID                                                                                                              |
+| inetno  | Your App ID                                                                                                            |
+| leguid  | Customer channel UUID                                                                                                  |
+| name    | Customer name if previously saved                                                                                      |
+| uuid    | Agent call UUID for call barging                                                                                       |
+| state   | Current call state: 'early' = ringing, 'answer' = answered, 'bridged' = call established, 'hangup' = call disconnected  |
+
+---
+
+## 🔗 Repository
+
+- **GitHub Repository:** [https://github.com/telecmi/connly-voice-feed](https://github.com/telecmi/connly-voice-feed)
+
+## 🐛 Issues
+
+If you encounter any issues or have suggestions, please open an issue on our [GitHub Issues](https://github.com/telecmi/connly-voice-feed/issues).
 
 
-
-
-**List of Response**
-
-| action                                                                                                                         	| agent    	| group                  	| from            	| id        	| inetno      	| leguid                	| name                       	| uuid            	| state                                                                                                                                                                                         	|
-|--------------------------------------------------------------------------------------------------------------------------------	|----------	|------------------------	|-----------------	|-----------	|-------------	|-----------------------	|----------------------------	|-----------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| It's define channel property "ch-c" = channel create ."ch-s" = channel state change like early,answer. "ch-d" = channel deleted 	| Agent id 	| Call receiving team id 	| customer number 	| record is 	| Your app id 	| customer channel uuid 	| customer name if you saved 	| agent call uuid 	| call status is it answered or ringing  'early' = Call ringing to agent 'answer' = Call answered by agent 'bridged' = Call established between customer and agent 'hangup' = Call disconnected 	|
-
-### Agents
-This callback function invoked when Users/Agents update their status .
-
-**syntax**
- 
-```javascript
-  telecmi.onAgents=function(data){
-  //data - JSON object
-  };
-```
-***Example***
-```javascript
-  telecmi.onAgents=function(data){
-  
- };
-```
-
-
+---
