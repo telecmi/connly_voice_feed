@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('socket.io-client')) :
     typeof define === 'function' && define.amd ? define(['socket.io-client'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Connly = factory(global.io));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Connly = factory(global.socket_ioClient));
 })(this, (function (socket_ioClient) { 'use strict';
 
     class Connly {

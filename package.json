@@ -1,11 +1,20 @@
 {
   "name": "connly-voice-feed",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Connly live call feed JavaScript SDK for browser and Node.js",
-  "type": "module",
-  "main": "dist/connly-voice-feed.umd.js",
-  "module": "src/Connly.js",
-  "browser": "dist/connly-voice-feed.umd.js",
+  "main": "dist/connly-voice-feed.cjs", 
+  "module": "dist/connly-voice-feed.mjs", 
+  "browser": "dist/connly-voice-feed.umd.js", 
+  "exports": {
+    ".": {
+      "import": "./dist/connly-voice-feed.mjs",
+      "require": "./dist/connly-voice-feed.cjs"
+    }
+  },
+  "type": "module", 
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "connly",
     "call-feed",
