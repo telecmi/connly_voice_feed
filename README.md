@@ -1,5 +1,4 @@
 
-
 # Connly Voice Feed
 
 **Connly Voice Feed** is a JavaScript SDK that provides real-time call feed data from the Connly platform. It is compatible with both **Browser** and **Node.js** environments, enabling seamless integration of live call events, agent status updates, and callback functionalities into your applications.
@@ -49,7 +48,7 @@ import Connly from 'connly-voice-feed';
 
 ---
 
-## 🛠 API Reference
+## 🛠 API Reference with Examples
 
 ### Class: `Connly`
 
@@ -63,109 +62,182 @@ new Connly()
 
 Creates a new instance of the Connly SDK.
 
----
-
 ### Methods
 
 #### `start(token)`
 
 Connects to the Connly platform using the provided access token.
 
-- **Parameters:**
-  - `token` (string): The access token obtained from the Admin Login API.
+```javascript
+const connly = new Connly();
+connly.start('your-access-token');
+```
+
+---
 
 #### `barge(uuid, to)`
 
 Barges into an ongoing call using the call's UUID and the supervisor's ID.
 
-- **Parameters:**
-  - `uuid` (string): The unique identifier of the call.
-  - `to` (string): The supervisor's ID to whom the call is being barged.
+```javascript
+const CALL_UUID = 'example-uuid';
+const SUPERVISOR_ID = 'supervisor-id';
+connly.barge(CALL_UUID, SUPERVISOR_ID);
+```
+
+---
 
 #### `subscribeCalls()`
 
 Subscribes to live call feed events.
 
+```javascript
+connly.subscribeCalls();
+```
+
+---
+
 #### `monitorCalls()`
 
 Subscribes to ongoing call events.
+
+```javascript
+connly.monitorCalls();
+```
+
+---
 
 #### `subscribeAgents()`
 
 Subscribes to agent status and list updates.
 
+```javascript
+connly.subscribeAgents();
+```
+
+---
+
 #### `removeAllListeners()`
 
 Removes all socket event listeners.
 
+```javascript
+connly.removeAllListeners();
+```
+
 ---
 
-### Event Handlers
+## 🔥 Event Handlers (With Examples)
 
 These are callback functions that can be overridden to handle specific events emitted by the SDK.
 
-#### `onConnect(data)`
+### `onConnect(data)`
 
 Triggered when the socket connection is successfully established.
 
-- **Parameters:**
-  - `data` (object): Contains the connection status.
+```javascript
+connly.onConnect = (data) => {
+    console.log('Connected to Connly platform:', data);
+    connly.subscribeCalls(); // Example: Subscribe to live calls once connected
+};
+```
 
-#### `onDisconnect(data)`
+---
+
+### `onDisconnect(data)`
 
 Triggered when the socket connection is disconnected.
 
-- **Parameters:**
-  - `data` (object): Contains the disconnection status.
+```javascript
+connly.onDisconnect = (data) => {
+    console.log('Disconnected from Connly platform:', data);
+};
+```
 
-#### `onCalls(data)`
+---
+
+### `onCalls(data)`
 
 Triggered when a new call event occurs.
 
-- **Parameters:**
-  - `data` (object): Contains information about the call.
+```javascript
+connly.onCalls = (data) => {
+    console.log('New Call Event:', data);
+    console.log(`Caller: ${data.from}, Agent: ${data.agent}, UUID: ${data.uuid}`);
+};
+```
 
-#### `onAgents(data)`
+---
+
+### `onAgents(data)`
 
 Triggered when agent statuses or the agent list is updated.
 
-- **Parameters:**
-  - `data` (object): Contains information about agents.
+```javascript
+connly.onAgents = (data) => {
+    console.log('Agent Updates:', data);
+};
+```
 
-#### `onStatus(data)`
+---
+
+### `onStatus(data)`
 
 Triggered on status updates or errors (e.g., invalid token).
 
-- **Parameters:**
-  - `data` (object): Contains status messages or error details.
+```javascript
+connly.onStatus = (data) => {
+    console.log('Status Update:', data);
+};
+```
 
-#### `onCount(data)`
+---
+
+### `onCount(data)`
 
 Triggered on incoming call count updates.
 
-- **Parameters:**
-  - `data` (object): Contains the count of incoming calls.
+```javascript
+connly.onCount = (data) => {
+    console.log('Incoming Call Count:', data);
+};
+```
 
-#### `onagentAnswer(data)`
+---
+
+### `onagentAnswer(data)`
 
 Triggered when an agent answers a call.
 
-- **Parameters:**
-  - `data` (object): Contains details about the answered call.
+```javascript
+connly.onagentAnswer = (data) => {
+    console.log('Agent Answered Call:', data);
+};
+```
 
-#### `onAnswer(data)`
+---
+
+### `onAnswer(data)`
 
 Triggered when a customer answers a call.
 
-- **Parameters:**
-  - `data` (object): Contains details about the answered call.
+```javascript
+connly.onAnswer = (data) => {
+    console.log('Customer Answered Call:', data);
+};
+```
 
-#### `onCallback(data)`
+---
+
+### `onCallback(data)`
 
 Triggered when a callback event occurs.
 
-- **Parameters:**
-  - `data` (object): Contains information about the callback event.
+```javascript
+connly.onCallback = (data) => {
+    console.log('Callback Event:', data);
+};
+```
 
 ---
 
@@ -193,6 +265,3 @@ Triggered when a callback event occurs.
 ## 🐛 Issues
 
 If you encounter any issues or have suggestions, please open an issue on our [GitHub Issues](https://github.com/telecmi/connly-voice-feed/issues).
-
-
----
