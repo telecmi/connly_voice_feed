@@ -53,12 +53,12 @@
             this.socket.removeAllListeners();
         }
 
-        barge ( uuid, to ) {
-            if ( !uuid ) {
+        barge ( obj ) {
+            if ( !obj ) {
                 this.onStatus( { status: 'error', msg: 'Invalid UUID' } );
                 return;
             }
-            this.socket.emit( 'admin-call-globalbarging', { uuid, to } );
+            this.socket.emit( 'admin-call-globalbarging', obj );
         }
 
         subscribeCalls () {

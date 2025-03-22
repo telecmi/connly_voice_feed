@@ -1,6 +1,6 @@
 {
   "name": "connly-voice-feed",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Connly live call feed JavaScript SDK for browser and Node.js",
   "main": "dist/connly-voice-feed.cjs", 
   "module": "dist/connly-voice-feed.mjs", 
